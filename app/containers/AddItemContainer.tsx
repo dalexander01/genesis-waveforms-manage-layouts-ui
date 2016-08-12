@@ -1,8 +1,16 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import AddItemComponent from '../Components/AddItemComponent';
 
-class AddItemContainer extends React.Component {
-  constructor(props) {
+interface AddItemContainerProps {
+  onAddButtonClicked: (addItemText: string) => void;
+  errorState: any;
+}
+
+interface AddItemContainerState {
+  addItemText: string;
+}
+class AddItemContainer extends React.Component<AddItemContainerProps, AddItemContainerState> {
+  constructor(props: AddItemContainerProps) {
     super(props);
     this.state = { addItemText: '' };
     this.handleAddItemTextChange = this.handleAddItemTextChange.bind(this);
@@ -14,8 +22,8 @@ class AddItemContainer extends React.Component {
     this.setState({ addItemText: '' });
   }
 
-  handleAddItemTextChange(e) {
-    this.setState({ addItemText: e.target.value });
+  handleAddItemTextChange(e: any) {
+    this.setState({ addItemText: (event.target as HTMLInputElement).value });
   }
   render() {
     return (
@@ -28,10 +36,5 @@ class AddItemContainer extends React.Component {
     );
   }
 }
-
-AddItemContainer.propTypes = {
-  onAddButtonClicked: PropTypes.func.isRequired,
-  errorState: PropTypes.object.isRequired,
-};
 
 export default AddItemContainer;

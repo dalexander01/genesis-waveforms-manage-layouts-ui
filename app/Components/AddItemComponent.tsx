@@ -2,7 +2,15 @@ import React from 'react';
 import { TextField, FlatButton } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-const AddItemComponent = ({ onAddItemTextChange, addItemText, onAddButtonClicked, errorState }) => (
+interface AddItemComponentProps {
+  onAddItemTextChange: (e: any) => void;
+  addItemText: string;
+  onAddButtonClicked: () => void;
+  errorState: any;
+};
+
+const AddItemComponent: React.StatelessComponent<AddItemComponentProps> = ({ onAddItemTextChange,
+  addItemText, onAddButtonClicked, errorState }) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <TextField
       autoFocus
@@ -22,12 +30,5 @@ const AddItemComponent = ({ onAddItemTextChange, addItemText, onAddButtonClicked
     />
   </div>
 );
-
-AddItemComponent.propTypes = {
-  onAddButtonClicked: React.PropTypes.func.isRequired,
-  onAddItemTextChange: React.PropTypes.func.isRequired,
-  addItemText: React.PropTypes.string.isRequired,
-  errorState: React.PropTypes.object.isRequired,
-};
 
 export default AddItemComponent;

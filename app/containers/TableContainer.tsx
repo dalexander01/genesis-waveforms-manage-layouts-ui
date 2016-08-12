@@ -1,15 +1,15 @@
 import React from 'react';
-import { Table, TableBody, TableRow, TableRowColumn }
-  from 'material-ui/Table';
-import FontIcon from 'material-ui/FontIcon';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { green500, red500, blue500, grey500 } from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
+import { Table, TableBody, TableRow, TableRowColumn, FontIcon,  Paper, RaisedButton, TextField, FlatButton, Divider}
+  from 'material-ui';
+import {green500, red500, blue500, grey500} from 'material-ui/styles/colors';
 import AddItemContainer from './AddItemContainer';
 
+interface TableContainerState {
+  items: string[];
+  hoverRow: string;
+  editRow: string;
+  editText: string;
+}
 class TableContainer extends React.Component {
   constructor(props) {
     super(props);
