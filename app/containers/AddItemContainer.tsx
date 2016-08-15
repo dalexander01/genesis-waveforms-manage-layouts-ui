@@ -16,6 +16,7 @@ class AddItemContainer extends React.Component<AddItemContainerProps, AddItemCon
     this.state = { addItemText: '' };
     this.handleAddItemTextChange = this.handleAddItemTextChange.bind(this);
     this.handleAddButtonClicked = this.handleAddButtonClicked.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   handleAddButtonClicked() {
@@ -26,6 +27,12 @@ class AddItemContainer extends React.Component<AddItemContainerProps, AddItemCon
   handleAddItemTextChange(e: any) {
     this.setState({ addItemText: e.target.value });
   }
+
+  handleKeyDown(e: any) {
+    if (e.keyCode === 13) {
+      this.handleAddButtonClicked();
+    }
+  }
   render() {
     return (
       <AddItemComponent
@@ -33,6 +40,7 @@ class AddItemContainer extends React.Component<AddItemContainerProps, AddItemCon
         onAddItemTextChange={this.handleAddItemTextChange}
         addItemText={this.state.addItemText}
         errorState={this.props.errorState}
+        onKeyDown={this.handleKeyDown}
       />
     );
   }

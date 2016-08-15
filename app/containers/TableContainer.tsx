@@ -70,6 +70,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
               errorText={this.state.editItemErrorState.inError ?
                 this.state.editItemErrorState.errorMessage : ''}
               maxLength={20}
+              onKeyDown={e => this.handleEditItemKeyDown(e, i)}
             />
           </TableRowColumn>
           <TableRowColumn>
@@ -114,6 +115,11 @@ class TableContainer extends React.Component<any, TableContainerState> {
     );
   }
 
+  handleEditItemKeyDown(e: any, index: number) {
+    if (e.keyCode === 13) {
+      this.handleOkClicked(index);
+    }
+  }
   handleOkClicked(index: number) {
     if (this.state.items.includes(this.state.editText)) {
       this.setState({

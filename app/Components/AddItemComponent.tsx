@@ -8,10 +8,11 @@ interface AddItemComponentProps {
   addItemText: string;
   onAddButtonClicked: () => void;
   errorState: ErrorState;
+  onKeyDown: (e: any) => void;
 };
 
 const AddItemComponent: React.StatelessComponent<AddItemComponentProps> = ({ onAddItemTextChange,
-  addItemText, onAddButtonClicked, errorState }) => (
+  addItemText, onAddButtonClicked, errorState, onKeyDown }) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <TextField
       autoFocus
@@ -22,6 +23,7 @@ const AddItemComponent: React.StatelessComponent<AddItemComponentProps> = ({ onA
       value={addItemText}
       errorText={errorState.inError ? errorState.errorMessage : ''}
       style={{ width: '80%', border: 'medium' }}
+      onKeyDown={onKeyDown}
     />
     <FlatButton
       onClick={onAddButtonClicked}
