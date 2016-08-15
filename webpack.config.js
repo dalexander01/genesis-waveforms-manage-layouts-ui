@@ -12,7 +12,7 @@ module.exports = {
   // This will be our app's entry point (webpack will look for it in the 'src'
   // directory due to the modulesDirectory setting below). Feel free to change as desired.
   entry: [
-    'index.tsx',
+    './app/index.tsx',
   ],
   output: {
     path: path.resolve('dist'),

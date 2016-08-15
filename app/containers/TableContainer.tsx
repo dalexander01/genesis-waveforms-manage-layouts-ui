@@ -1,17 +1,21 @@
 import React from 'react';
-import { Table, TableBody, TableRow, TableRowColumn, FontIcon,  Paper, RaisedButton, TextField, FlatButton, Divider}
+import { Table, TableBody, TableRow, TableRowColumn,  Paper, RaisedButton, TextField, FontIcon, FlatButton, Divider}
   from 'material-ui';
 import {green500, red500, blue500, grey500} from 'material-ui/styles/colors';
 import AddItemContainer from './AddItemContainer';
+import ErrorState from './ErrorState';
 
 interface TableContainerState {
-  items: string[];
-  hoverRow: string;
-  editRow: string;
-  editText: string;
+  items?: Array<string>;
+  hoverRow?: number;
+  editRow?: number;
+  editText?: string;
+  errorState?: ErrorState;
+  editItemErrorState?: ErrorState;
 }
-class TableContainer extends React.Component {
-  constructor(props) {
+
+class TableContainer extends React.Component<any, TableContainerState> {
+  constructor(props: any) {
     super(props);
     this.state = {
       items: [
@@ -19,8 +23,8 @@ class TableContainer extends React.Component {
         'item2',
         'item3',
       ],
-      hoverRow: '',
-      editRow: '',
+      hoverRow: null,
+      editRow: null,
       editText: '',
       errorState: {
         inError: false,
@@ -40,11 +44,11 @@ class TableContainer extends React.Component {
     this.handleCancelClicked = this.handleCancelClicked.bind(this);
   }
 
-  onItemTextChange(e) {
-    this.setState({ editText: e.target.value });
+  onItemTextChange(e: any) {
+    this.setState({ editText: (event.target as HTMLInputElement).value });
   }
 
-  getTableRow(i, item) {
+  getTableRow(i: number, item: string) {
     if (this.state.hoverRow !== i && this.state.editRow !== i) {
       return (
         <TableRow hoverable key={i} selectable={false}>
@@ -56,12 +60,6 @@ class TableContainer extends React.Component {
       return (
         <TableRow key={i} selectable={false}>
           <TableRowColumn>
-            {/* <input
-              type="text"
-              name="itemName"
-              onChange={this.onItemTextChange}
-              autoFocus
-            />*/}
             <TextField
               type="text"
               name="itemName"
@@ -88,15 +86,6 @@ class TableContainer extends React.Component {
                 title="Cancel"
                 onClick={this.handleCancelClicked}
               />
-              {/* <IconButton
-                title="Done"
-                onClick={() => this.handleOkClicked(i)}
-              >
-                <FontIcon className="material-icons">done</FontIcon>
-              </IconButton>
-              <IconButton title="Cancel" onClick={this.handleCancelClicked}>
-                <FontIcon className="material-icons">cancel</FontIcon>
-              </IconButton>*/}
             </div>
           </TableRowColumn>
         </TableRow>
@@ -110,31 +99,22 @@ class TableContainer extends React.Component {
             <FlatButton
               icon={<FontIcon className="material-icons" color={grey500}>create</FontIcon>}
               style={{ minWidth: 50, width: 50, margin: 5 }}
-              title="Edit"
               onClick={() => this.handleEditClicked(i)}
+              title="Edit"
             />
             <FlatButton
               icon={<FontIcon className="material-icons" color={red500}>delete_forever</FontIcon>}
               style={{ minWidth: 50, width: 50, margin: 5 }}
-              title="Delete"
               onClick={() => this.handleDeleteClicked(i)}
+              title="Delete"
             />
-          {/* <IconButton
-              title="Edit"
-              onClick={() => this.handleEditClicked(i)}
-            >
-              <FontIcon className="material-icons">create</FontIcon>
-            </IconButton>
-            <IconButton title="Delete" onClick={() => this.handleDeleteClicked(i)}>
-              <FontIcon className="material-icons">clear</FontIcon>
-            </IconButton>*/}
           </div>
         </TableRowColumn>
       </TableRow>
     );
   }
 
-  handleOkClicked(index) {
+  handleOkClicked(index: number) {
     if (this.state.items.includes(this.state.editText)) {
       this.setState({
         editItemErrorState: {
@@ -154,7 +134,7 @@ class TableContainer extends React.Component {
       tempItems[index] = this.state.editText;
       this.setState({
         items: tempItems,
-        editRow: '',
+        editRow: null,
         editItemErrorState: {
           inError: false,
           errorMessage: '',
@@ -165,7 +145,7 @@ class TableContainer extends React.Component {
 
   handleCancelClicked() {
     this.setState({
-      editRow: '',
+      editRow: null,
       editText: '',
       errorState: {
         inError: false,
@@ -178,20 +158,20 @@ class TableContainer extends React.Component {
     });
   }
 
-  handleDeleteClicked(index) {
+  handleDeleteClicked(index: number) {
     const newItems = this.state.items.slice();
     newItems.splice(index, 1);
     this.setState({ items: newItems });
   }
 
-  handleEditClicked(i) {
+  handleEditClicked(i: number) {
     this.setState({
       editRow: i,
       editText: '',
     });
   }
 
-  handleAddButtonClicked(item) {
+  handleAddButtonClicked(item: string) {
     if (this.state.items.includes(item)) {
       this.setState({
         errorState: {
@@ -212,12 +192,12 @@ class TableContainer extends React.Component {
     }
   }
 
-  handleRowHover(i) {
+  handleRowHover(i: number) {
     this.setState({ hoverRow: i });
   }
   handleRowHoverExit() {
     this.setState({
-      hoverRow: '',
+      hoverRow: null,
     });
   }
   render() {
@@ -229,20 +209,18 @@ class TableContainer extends React.Component {
             errorState={this.state.errorState}
           />
           <div style={{ paddingTop: 50 }}>
-            <span style={{ color: blue500 }}>Items</span><Divider style={{ margin: 20 }} />
-            <Paper>
-              <Table
-                onRowHover={this.handleRowHover}
-                onRowHoverExit={this.handleRowHoverExit}
-                selectable={false}
-              >
-                <TableBody displayRowCheckbox={false} showRowHover>
-                    {this.state.items.map((item, i) =>
-                      this.getTableRow(i, item)
-                    )}
-                </TableBody>
-              </Table>
-            </Paper>
+          <span style={{ color: blue500 }}>Items</span><Divider style={{ margin: 20 }} />
+            <Table
+              onRowHover={this.handleRowHover}
+              onRowHoverExit={this.handleRowHoverExit}
+              selectable={false}
+            >
+              <TableBody displayRowCheckbox={false} showRowHover>
+                  {this.state.items.map((item, i) =>
+                    this.getTableRow(i, item)
+                  )}
+              </TableBody>
+            </Table>
           </div>
           <div style={{ textAlign: 'right' }}>
             <RaisedButton label="Save" primary style={{ margin: 10 }} />
