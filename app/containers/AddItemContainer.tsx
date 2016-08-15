@@ -1,9 +1,10 @@
 import React from 'react';
 import AddItemComponent from '../Components/AddItemComponent';
+import ErrorState from './ErrorState';
 
 interface AddItemContainerProps {
   onAddButtonClicked: (addItemText: string) => void;
-  errorState: any;
+  errorState: ErrorState;
 }
 
 interface AddItemContainerState {
@@ -23,7 +24,7 @@ class AddItemContainer extends React.Component<AddItemContainerProps, AddItemCon
   }
 
   handleAddItemTextChange(e: any) {
-    this.setState({ addItemText: (event.target as HTMLInputElement).value });
+    this.setState({ addItemText: e.target.value });
   }
   render() {
     return (

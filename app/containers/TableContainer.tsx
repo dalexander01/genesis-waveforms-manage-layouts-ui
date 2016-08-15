@@ -45,7 +45,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
   }
 
   onItemTextChange(e: any) {
-    this.setState({ editText: (event.target as HTMLInputElement).value });
+    this.setState({ editText: event.target.value });
   }
 
   getTableRow(i: number, item: string) {

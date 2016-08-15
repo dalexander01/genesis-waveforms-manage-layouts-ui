@@ -1,12 +1,13 @@
 import React from 'react';
 import { TextField, FlatButton } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ErrorState from '../containers/ErrorState';
 
 interface AddItemComponentProps {
   onAddItemTextChange: (e: any) => void;
   addItemText: string;
   onAddButtonClicked: () => void;
-  errorState: any;
+  errorState: ErrorState;
 };
 
 const AddItemComponent: React.StatelessComponent<AddItemComponentProps> = ({ onAddItemTextChange,
