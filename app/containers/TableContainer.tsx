@@ -14,15 +14,19 @@ interface TableContainerState {
   editItemErrorState?: ErrorState;
 }
 
+function getItems(): Array<string> {
+    let items: Array<string> = [];
+    for (let i: number = 0; i < 100; i++) {
+      items.push(`items ${i}`);
+    }
+    return items;
+  }
+
 class TableContainer extends React.Component<any, TableContainerState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      items: [
-        'item1',
-        'item2',
-        'item3',
-      ],
+      items: getItems(),
       hoverRow: null,
       editRow: null,
       editText: '',
@@ -35,6 +39,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
         errorMessage: '',
       },
     };
+    console.log(this.state);
     this.handleAddButtonClicked = this.handleAddButtonClicked.bind(this);
     this.getTableRow = this.getTableRow.bind(this);
     this.handleRowHover = this.handleRowHover.bind(this);
@@ -220,6 +225,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
               onRowHover={this.handleRowHover}
               onRowHoverExit={this.handleRowHoverExit}
               selectable={false}
+              height="300"
             >
               <TableBody displayRowCheckbox={false} showRowHover>
                   {this.state.items.map((item, i) =>
