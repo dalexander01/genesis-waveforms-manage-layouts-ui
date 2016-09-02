@@ -4,11 +4,11 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ErrorState from '../containers/ErrorState';
 
 interface AddItemComponentProps {
-  onAddItemTextChange: (e: any) => void;
+  onAddItemTextChange: (e: React.FormEvent<{}>) => void;
   addItemText: string;
   onAddButtonClicked: () => void;
   errorState: ErrorState;
-  onKeyDown: (e: any) => void;
+  onKeyDown: (e: React.KeyboardEvent<{}>) => void;
 };
 
 const AddItemComponent: React.StatelessComponent<AddItemComponentProps> = ({ onAddItemTextChange,

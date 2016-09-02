@@ -24,11 +24,11 @@ class AddItemContainer extends React.Component<AddItemContainerProps, AddItemCon
     this.setState({ addItemText: '' });
   }
 
-  handleAddItemTextChange(e: any) {
-    this.setState({ addItemText: e.target.value });
+  handleAddItemTextChange(e: React.FormEvent<{}>) {
+    this.setState({ addItemText: ((e.target) as any).value });
   }
 
-  handleKeyDown(e: any) {
+  handleKeyDown(e: React.KeyboardEvent<{}>) {
     if (e.keyCode === 13) {
       this.handleAddButtonClicked();
     }

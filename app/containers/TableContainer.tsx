@@ -22,8 +22,8 @@ function getItems(): Array<string> {
     return items;
   }
 
-class TableContainer extends React.Component<any, TableContainerState> {
-  constructor(props: any) {
+class TableContainer extends React.Component<{}, TableContainerState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       items: getItems(),
@@ -39,7 +39,6 @@ class TableContainer extends React.Component<any, TableContainerState> {
         errorMessage: '',
       },
     };
-    console.log(this.state);
     this.handleAddButtonClicked = this.handleAddButtonClicked.bind(this);
     this.getTableRow = this.getTableRow.bind(this);
     this.handleRowHover = this.handleRowHover.bind(this);
@@ -49,8 +48,8 @@ class TableContainer extends React.Component<any, TableContainerState> {
     this.handleCancelClicked = this.handleCancelClicked.bind(this);
   }
 
-  onItemTextChange(e: any) {
-    this.setState({ editText: e.target.value });
+  onItemTextChange(e: React.FormEvent<{}>) {
+    this.setState({ editText: ((e.target) as any).value });
   }
 
   getTableRow(i: number, item: string) {
@@ -120,7 +119,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
     );
   }
 
-  handleEditItemKeyDown(e: any, index: number) {
+  handleEditItemKeyDown(e: React.KeyboardEvent<{}>, index: number) {
     if (e.keyCode === 13) {
       this.handleOkClicked(index);
     }
@@ -225,7 +224,7 @@ class TableContainer extends React.Component<any, TableContainerState> {
               onRowHover={this.handleRowHover}
               onRowHoverExit={this.handleRowHoverExit}
               selectable={false}
-              height="300"
+              height="300px"
             >
               <TableBody displayRowCheckbox={false} showRowHover>
                   {this.state.items.map((item, i) =>

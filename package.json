@@ -32,7 +32,7 @@
     "eslint-plugin-react": "^5.2.2",
     "html-webpack-plugin": "^2.21.0",
     "ts-loader": "^0.8.2",
-    "tslint": "^3.14.0",
+    "tslint": "^3.15.0-dev.0",
     "typescript": "^2.1.0-dev.20160812",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
